@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Page from './page';
+import Page from '../Page/page';
 
 class Pages extends Component {
 
