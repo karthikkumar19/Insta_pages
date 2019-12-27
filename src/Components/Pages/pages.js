@@ -2,29 +2,59 @@ import React, {Component} from 'react';
 import Page from '../Page/page';
 import Spinner from '../UI/Spinner/Spinner';
 import axios from '../../axios-orders';
+import SelectedPage from '../selectedpage';
 
 class Pages extends Component {
 
 state={
-    pages:[],
-    loading:true
+    pages:[
+    ],
+    selectedPage:[
+        {
+            followers:'99',
+            instaId:'ttt',
+            language:'tam',
+            name:"init",
+            pageLink:"ini"
+        }
+    ],
+    loading:true,
+}
+
+
+onEditHandler = () =>{
+
+    // const queryParams = '?orderBy="instaId"&equalTo="'+ name +  '"';
+    // axios.get('/pages.json'+ queryParams )
+    // .then(response => {  
+    //     const selectedPages = [];
+    //     for (let key in response.data){
+    //         selectedPages.push({
+    //             ...response.data[key],
+    //             id:key
+    //         });}   
+    //     console.log(response.data);
+    //     this.setState({selectedPage:selectedPages});
+    //     console.log(this.state.selectedPage);
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // });
+    console.log("working");
 }
 
 componentDidMount() {
-    const name = "ntng";
-    const queryParams = '?orderBy="instaId"&equalTo="'+ name +  '"';
-    axios.get('/pages.json'+ queryParams )
+    axios.get('/pages.json' )
     .then(response => {
         const fetchedPages = [];
         for (let key in response.data){
             fetchedPages.push({
                 ...response.data[key],
                 id:key
-            });}
-            const data = Object.values(response.data);
-        
+            });}   
+            console.log(response.data);
+            console.log(this.state.selectedPage);
         this.setState({loading:false,pages:fetchedPages})
-        console.log(response.data);
 
     })
     .catch(err => {
@@ -41,16 +71,29 @@ if(!this.state.loading){
           followers={page.followers}
           Insta_id={page.instaId}
           Page_link={page.pageLink}
-          Lang={page.language} 
-        
+          Lang={page.language}
+          edit={() => this.onEditHandler(page.instaId)} 
           />
     ));
 }
+    // let spages = null;
+    // spages = this.state.selectedPage.map(page => (
+    //     <Page 
+    //       pageName={page.name}
+    //       followers={page.followers}
+    //       Insta_id={page.instaId}
+    //       Page_link={page.pageLink}
+    //       Lang={page.language}
+    //       edit={() => this.onEditHandler(page.instaId)} 
+    //       />
+    // ));
+
  
 
         return(
             <div>
                 {pages}
+                {/* {spages} */}
             </div>
         )
     }
