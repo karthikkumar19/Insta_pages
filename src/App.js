@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Pages from './Components/Pages/pages';
+import Addpageform from './Container/addpageform';
 
 
 class App extends Component{
@@ -9,6 +10,7 @@ class App extends Component{
       <div>
         <h1>insta</h1>
         <Pages/>
+        <Addpageform/>
       </div>
     )
   }
