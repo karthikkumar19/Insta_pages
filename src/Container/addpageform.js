@@ -3,6 +3,8 @@ import Button from '../Components/UI/Button/button';
 import classes from './addpageform.module.css';
 import axios from '../axios-orders';
 import Input from '../Components/UI/Input/input';
+import Spinner from '../Components/UI/Spinner/Spinner';
+import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import {updateObject, checkValidity} from '../shared/utility';
 
 class AddPageForm extends Component {
@@ -74,7 +76,8 @@ class AddPageForm extends Component {
                 touched: false
             },
         },
-        formIsValid: false
+        formIsValid: false,
+        loading:false
     }
 
     orderHandler = ( event ) => {
@@ -83,16 +86,13 @@ class AddPageForm extends Component {
         for (let formElementIdentifier in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
+        this.setState({loading:true})
         axios.post('/pages.json',formData)
-        .then(response => console.log(response))
+        .then(response => 
+            {
+                this.setState({loading:false})
+                console.log(response) })
         .catch(error => console.log(error));
-       
-        // const order = {
-        //     ingredients: this.props.ings,
-        //     price: this.props.price,
-        //     orderData: formData,
-        //     userId:this.props.userId
-        // }
     }
 
     
@@ -138,9 +138,9 @@ class AddPageForm extends Component {
                 <Button btnType="Success" disabled={!this.state.formIsValid}>SUBMIT</Button>
             </form>
         );
-        // if ( this.props.loading ) {
-        //     form = <Spinner />;
-        // }
+        if ( this.state.loading ) {
+            form = <Spinner />;
+        }
         return (
             <div className={classes.ContactData}>
                 <h4>Enter your Page Data</h4>
@@ -151,4 +151,4 @@ class AddPageForm extends Component {
 }
 
 
-export default AddPageForm;
+export default withErrorHandler(AddPageForm,axios) ;

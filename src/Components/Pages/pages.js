@@ -1,43 +1,46 @@
 import React, {Component} from 'react';
 import Page from '../Page/page';
+import Spinner from '../UI/Spinner/Spinner';
+import axios from '../../axios-orders';
 
 class Pages extends Component {
 
 state={
-    pages:[
-        {
-            name:'vadivelu',
-            followers:'30k',
-            Insta_id:'xxx',
-            Page_link:'xxx',
-            lang:'tamil'
-        },
-        {
-            name:'kaipulla',
-            followers:'20k',
-            Insta_id:'yyy',
-            Page_link:'xxx',
-            lang:'tamil'
-        },
-        {
-            name:'candrolly',
-            followers:'60k',
-            Insta_id:'zzz',
-            Page_link:'zzz',
-            lang:'tamil'
-        },
-    ]
+    pages:[],
+    loading:true
 }
 
+componentDidMount() {
+    axios.get('/pages.json')
+    .then(response => {
+        const fetchedPages = [];
+        for (let key in response.data){
+            fetchedPages.push({
+                ...response.data[key],
+                id:key
+            });}
+        console.log(response.data);
+        
+        this.setState({loading:false,pages:fetchedPages})
+    })
+    .catch(err => {
+        this.setState({loading:false});
+    });
+ }
+
     render(){
-let pages = this.state.pages.map(page => (
-    <Page 
-      pageName={page.name}
-      followers={page.followers}
-      Insta_id={page.Insta_id}
-      Page_link={page.Page_link}
-      Lang={page.lang} />
-));
+let pages = <Spinner/>
+if(!this.state.loading){
+    pages = this.state.pages.map(page => (
+        <Page 
+          pageName={page.name}
+          followers={page.followers}
+          Insta_id={page.instaId}
+          Page_link={page.pageLink}
+          Lang={page.language} />
+    ));
+}
+ 
 
         return(
             <div>
