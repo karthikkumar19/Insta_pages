@@ -11,7 +11,9 @@ state={
 }
 
 componentDidMount() {
-    axios.get('/pages.json')
+    const name = "ntng";
+    const queryParams = '?orderBy="instaId"&equalTo="'+ name +  '"';
+    axios.get('/pages.json'+ queryParams )
     .then(response => {
         const fetchedPages = [];
         for (let key in response.data){
@@ -19,9 +21,11 @@ componentDidMount() {
                 ...response.data[key],
                 id:key
             });}
-        console.log(response.data);
+            const data = Object.values(response.data);
         
         this.setState({loading:false,pages:fetchedPages})
+        console.log(response.data);
+
     })
     .catch(err => {
         this.setState({loading:false});
@@ -37,7 +41,9 @@ if(!this.state.loading){
           followers={page.followers}
           Insta_id={page.instaId}
           Page_link={page.pageLink}
-          Lang={page.language} />
+          Lang={page.language} 
+        
+          />
     ));
 }
  
