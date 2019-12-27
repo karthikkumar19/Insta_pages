@@ -19,14 +19,25 @@ state={
         }
     ],
     loading:true,
+    changed:true
 }
 
 
 onEditHandler = () =>{
 
-    axios.delete('/pages/-Lx5RpC43y-7mikE_vhA.json')
+    axios.put('/pages/-Lx7WiN-lFVzvhqz2Rhw.json',{
+        followers:"success",
+        instaId:"succ",
+        language:'woking',
+        name:"test_sucess",
+        pageLink:"succc"
+    })
     .then(res => {
         console.log(res);
+        this.setState({changed:true});
+        this.componentDidMount();
+
+
     }).catch(err => {
         console.log(err)
     })
@@ -47,26 +58,34 @@ onEditHandler = () =>{
     //     console.log(err);
     // });
     console.log("working");
+   
 }
 
-componentDidMount() {
-    axios.get('/pages.json' )
-    .then(response => {
-        const fetchedPages = [];
-        for (let key in response.data){
-            fetchedPages.push({
-                ...response.data[key],
-                id:key
-            });}   
-            console.log(response.data);
-            console.log(this.state.selectedPage);
-        this.setState({loading:false,pages:fetchedPages})
 
-    })
-    .catch(err => {
-        this.setState({loading:false});
-    });
- }
+
+
+componentDidMount() {
+        axios.get('/pages.json' )
+        .then(response => {
+            const fetchedPages = [];
+            for (let key in response.data){
+                fetchedPages.push({
+                    ...response.data[key],
+                    id:key
+                });}   
+                console.log(response.data);
+                console.log(this.state.selectedPage);
+            this.setState({loading:false,pages:fetchedPages,changed:false})
+    
+        })
+        .catch(err => {
+           console.log(err)
+        });
+  
+        
+    }
+    
+ 
 
     render(){
 let pages = <Spinner/>
