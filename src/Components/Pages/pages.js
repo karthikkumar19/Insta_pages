@@ -24,6 +24,12 @@ state={
 
 onEditHandler = () =>{
 
+    axios.delete('/pages/-Lx5RpC43y-7mikE_vhA.json')
+    .then(res => {
+        console.log(res);
+    }).catch(err => {
+        console.log(err)
+    })
     // const queryParams = '?orderBy="instaId"&equalTo="'+ name +  '"';
     // axios.get('/pages.json'+ queryParams )
     // .then(response => {  
