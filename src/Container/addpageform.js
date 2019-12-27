@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../Components/UI/Button/button';
 import classes from './addpageform.module.css';
-// import axios from '../../../axios-orders';
+import axios from '../axios-orders';
 import Input from '../Components/UI/Input/input';
 import {updateObject, checkValidity} from '../shared/utility';
 
@@ -79,10 +79,14 @@ class AddPageForm extends Component {
 
     orderHandler = ( event ) => {
         event.preventDefault();
-        // const formData = {};
-        // for (let formElementIdentifier in this.state.orderForm) {
-        //     formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
-        // }
+        const formData = {};
+        for (let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+        }
+        axios.post('/pages.json',formData)
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+       
         // const order = {
         //     ingredients: this.props.ings,
         //     price: this.props.price,
