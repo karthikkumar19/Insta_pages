@@ -3,6 +3,8 @@ import Page from '../Page/page';
 import Spinner from '../UI/Spinner/Spinner';
 import axios from '../../axios-orders';
 import SelectedPage from '../selectedpage';
+import firebase from '../../firebase';
+
 
 class Pages extends Component {
 
@@ -22,13 +24,12 @@ state={
     changed:true
 }
 
-onDeleteHandler = () =>{
-    // const queryParams = '?orderBy="instaId"&equalTo="'+ id +  '"';
-    let id ="-Lx5TtXvbg6iAauJcKNy";
-    axios.get('/pages.json' )
+onDeleteHandler = (id) =>{
+
+    axios.delete('./pages/'+id+'.json')
     .then(response => {  
-        console.log(response.data[0]);
-                // this.componentDidMount();
+        console.log(response);
+                this.componentDidMount();
     })
     .catch(err => {
         console.log(err);
@@ -75,28 +76,46 @@ onEditHandler = (name) =>{
 
 
 
-
-componentDidMount() {
-        axios.get('/pages.json' )
-        .then(response => {
-            const fetchedPages = [];
-            for (let key in response.data){
-                fetchedPages.push({
-                    ...response.data[key],
-                    id:key
-                });
-            }   
-                console.log(response);
-                console.log(this.state.selectedPage);
-            this.setState({loading:false,pages:fetchedPages,changed:false})
-    
-        })
-        .catch(err => {
-           console.log(err)
+componentDidMount(){
+    const wordRef = firebase.database().ref('pages');
+    wordRef.on('value', (snapshot) => {
+      let words = snapshot.val();
+      let newState =[];
+      for (let name in words){
+        newState.push({
+          id:name,
+          name:words[name].name,
+          followers:words[name].followers,
+          instaId:words[name].instaId,
+          pageLink:words[name].pageLink,
+          language:words[name].language
         });
+      }
+      console.log(newState[0]);
+      this.setState({loading:false,pages:newState,changed:false})
+    })
+  }
+// componentDidMount() {
+//         axios.get('/pages.json' )
+//         .then(response => {
+//             const fetchedPages = [];
+//             for (let key in response.data){
+//                 fetchedPages.push({
+//                     ...response.data[key],
+//                     id:key
+//                 });
+//             }   
+//                 console.log(response);
+//                 console.log(this.state.selectedPage);
+//             this.setState({loading:false,pages:fetchedPages,changed:false})
+    
+//         })
+//         .catch(err => {
+//            console.log(err)
+//         });
   
         
-    }
+//     }
     
  
 
@@ -110,8 +129,8 @@ if(!this.state.loading){
           Insta_id={page.instaId}
           Page_link={page.pageLink}
           Lang={page.language}
-          edit={() => this.onEditHandler(page.instaId)} 
-          delete={() => this.onDeleteHandler()}
+        //   edit={() => this.onEditHandler(page.instaId)} 
+          delete={() => this.onDeleteHandler(page.id)}
           />
     ));
 }
