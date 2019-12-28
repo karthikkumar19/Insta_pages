@@ -2,25 +2,13 @@ import React, {Component} from 'react';
 import Page from '../Page/page';
 import Spinner from '../UI/Spinner/Spinner';
 import axios from '../../axios-orders';
-import SelectedPage from '../selectedpage';
 import firebase from '../../firebase';
-import Addpageform from '../../Container/addpageform';
 
 
 class Pages extends Component {
 
 state={
-    pages:[
-    ],
-    selectedPage:[
-        {
-            followers:'',
-            instaId:'ttt',
-            language:'tam',
-            name:"init",
-            pageLink:"ini"
-        }
-    ],
+    pages:[],
     name:"",
     loading:true,
     changed:true
@@ -37,47 +25,9 @@ onDeleteHandler = (id) =>{
         console.log(err);
     });
 }
-
 onEditHandler = (name) =>{
-
-    // axios.put('/pages/-Lx7WiN-lFVzvhqz2Rhw.json',{
-    //     followers:"success",
-    //     instaId:"succ",
-    //     language:'woking',
-    //     name:"test_sucess",
-    //     pageLink:"succc"
-    // })
-    // .then(res => {
-    //     console.log(res);
-    //     this.setState({changed:true});
-    //     this.componentDidMount();
-
-
-    // }).catch(err => {
-    //     console.log(err)
-    // })
-    const queryParams = '?orderBy="instaId"&equalTo="'+ name +  '"';
-    axios.get('/pages.json'+ queryParams )
-    .then(response => {  
-        const selectedPages = [];
-        for (let key in response.data){
-            selectedPages.push({
-                ...response.data[key],
-                id:key
-            });}   
-        this.setState({selectedPage:selectedPages});
-        this.componentDidMount();
-        console.log(this.state.selectedPage);
-    })
-    .catch(err => {
-        console.log(err);
-    });
-    console.log("working");
-   
+    this.props.history.push('/' + name);   
 }
-
-
-
 componentDidMount(){
     const wordRef = firebase.database().ref('pages');
     wordRef.on('value', (snapshot) => {
@@ -97,64 +47,25 @@ componentDidMount(){
       this.setState({loading:false,pages:newState,changed:false})
     })
   }
-// componentDidMount() {
-//         axios.get('/pages.json' )
-//         .then(response => {
-//             const fetchedPages = [];
-//             for (let key in response.data){
-//                 fetchedPages.push({
-//                     ...response.data[key],
-//                     id:key
-//                 });
-//             }   
-//                 console.log(response);
-//                 console.log(this.state.selectedPage);
-//             this.setState({loading:false,pages:fetchedPages,changed:false})
-    
-//         })
-//         .catch(err => {
-//            console.log(err)
-//         });
-  
-        
-//     }
-    
- 
-
     render(){
 let pages = <Spinner/>
 if(!this.state.loading){
     pages = this.state.pages.map(page => (
         <Page 
           pageName={page.name}
+          key={page.id}
           followers={page.followers}
           Insta_id={page.instaId}
           Page_link={page.pageLink}
           Lang={page.language}
-          edit={() => this.onEditHandler(page.instaId)} 
+          edit={() => this.onEditHandler(page.id)} 
           delete={() => this.onDeleteHandler(page.id)}
           />
     ));
 }
-    // let spages = null;
-    // spages = this.state.selectedPage.map(page => (
-    //     <Page 
-    //       pageName={page.name}
-    //       followers={page.followers}
-    //       Insta_id={page.instaId}
-    //       Page_link={page.pageLink}
-    //       Lang={page.language}
-    //       edit={() => this.onEditHandler(page.instaId)} 
-    //       />
-    // ));
-
- 
-
         return(
             <div>
-                {pages}
-                {/* <Addpageform name={this.state.selectedPage}/> */}
-                {/* {spages} */}
+                {pages}          
             </div>
         )
     }

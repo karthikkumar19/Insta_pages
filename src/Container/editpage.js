@@ -9,7 +9,31 @@ import {updateObject, checkValidity} from '../shared/utility';
 import {withRouter} from 'react-router-dom';
 
 
-class AddPageForm extends Component {
+class Editpage extends Component {
+
+componentDidMount(){
+    console.log(this.props.match.params.id);
+    let id = this.props.match.params.id;
+    axios.get('/pages/' +id+ '.json' )
+            .then(response => {
+                const name = response.data.name;
+                const followers = response.data.followers;
+                const insta_id = response.data.instaId;
+                const link = response.data.pageLink;
+                const pgLang = response.data.language;
+    var someProperty = {...this.state.orderForm}
+    someProperty.name.value = name;
+    someProperty.followers.value = followers;
+    someProperty.instaId.value = insta_id;
+    someProperty.pageLink.value = link;
+    someProperty.language.value = pgLang;
+    this.setState({someProperty,id:this.props.match.params.id})
+                    console.log(response.data);        
+            })
+            .catch(err => {
+               console.log(err)
+            });
+}
 
     state = {
         orderForm: {
@@ -80,27 +104,27 @@ class AddPageForm extends Component {
             },
         },
         formIsValid: false,
-        loading:false
+        loading:false,
+        id:''
     }
 
     orderHandler = ( event ) => {
         event.preventDefault();
+        console.log(this.state.id)
         const formData = {};
         for (let formElementIdentifier in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
-        this.setState({loading:true})
-        axios.post('/pages.json',formData)
-        .then(response => 
-            {
-                this.setState({loading:false});
-                this.props.history.push('/');
-                console.log(this.props.histroy)
-                console.log(response);
-            })
-        .catch(error => console.log(error));
+        this.setState({loading:true});
+        axios.put('/pages/'+ this.state.id + '.json',formData)
+    .then(res => {
+        console.log(res);
+        this.setState({changed:true});
+          this.props.history.push('/');
+    }).catch(err => {
+        console.log(err);
+    })
     }
-
     
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -145,7 +169,7 @@ class AddPageForm extends Component {
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                <Button btnType="Success" disabled={!this.state.formIsValid}>SUBMIT</Button>
+                <Button btnType="Success" >SUBMIT</Button>
             </form>
         );
         if ( this.state.loading ) {
@@ -163,4 +187,4 @@ class AddPageForm extends Component {
 }
 
 
-export default withRouter( withErrorHandler(AddPageForm,axios)) ;
+export default withRouter( withErrorHandler(Editpage,axios)) ;
