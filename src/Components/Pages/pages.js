@@ -4,6 +4,7 @@ import Spinner from '../UI/Spinner/Spinner';
 import axios from '../../axios-orders';
 import SelectedPage from '../selectedpage';
 import firebase from '../../firebase';
+import Addpageform from '../../Container/addpageform';
 
 
 class Pages extends Component {
@@ -13,13 +14,14 @@ state={
     ],
     selectedPage:[
         {
-            followers:'99',
+            followers:'',
             instaId:'ttt',
             language:'tam',
             name:"init",
             pageLink:"ini"
         }
     ],
+    name:"",
     loading:true,
     changed:true
 }
@@ -57,15 +59,15 @@ onEditHandler = (name) =>{
     const queryParams = '?orderBy="instaId"&equalTo="'+ name +  '"';
     axios.get('/pages.json'+ queryParams )
     .then(response => {  
-        // const selectedPages = [];
-        // for (let key in response.data){
-        //     selectedPages.push({
-        //         ...response.data[key],
-        //         id:key
-        //     });}   
-        console.log(response);
-        // this.setState({selectedPage:selectedPages});
-        // console.log(this.state.selectedPage);
+        const selectedPages = [];
+        for (let key in response.data){
+            selectedPages.push({
+                ...response.data[key],
+                id:key
+            });}   
+        this.setState({selectedPage:selectedPages});
+        this.componentDidMount();
+        console.log(this.state.selectedPage);
     })
     .catch(err => {
         console.log(err);
@@ -129,7 +131,7 @@ if(!this.state.loading){
           Insta_id={page.instaId}
           Page_link={page.pageLink}
           Lang={page.language}
-        //   edit={() => this.onEditHandler(page.instaId)} 
+          edit={() => this.onEditHandler(page.instaId)} 
           delete={() => this.onDeleteHandler(page.id)}
           />
     ));
@@ -151,6 +153,7 @@ if(!this.state.loading){
         return(
             <div>
                 {pages}
+                {/* <Addpageform name={this.state.selectedPage}/> */}
                 {/* {spages} */}
             </div>
         )

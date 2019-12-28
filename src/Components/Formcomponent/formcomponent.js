@@ -1,35 +1,12 @@
 import React, { Component } from 'react';
-import Button from '../Components/UI/Button/button';
-import classes from './addpageform.module.css';
-import axios from '../axios-orders';
-import Input from '../Components/UI/Input/input';
-import Spinner from '../Components/UI/Spinner/Spinner';
-import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
-import {updateObject, checkValidity} from '../shared/utility';
-import Formcomponent from '../Components/Formcomponent/formcomponent';
-import {withRouter} from 'react-router-dom';
+import Input from '../UI/Input/input';
+import Button from '../UI/Button/button';
+import {updateObject, checkValidity} from '../../shared/utility';
 
 
-class AddPageForm extends Component {
 
-componentDidMount(){
-this.onInit();
-}
 
-onInit = () =>{
-    const name = this.props.name;
-    console.log(name[0].followers);
-    var someProperty = {...this.state.orderForm}
-    someProperty.name.value = name;
-    this.setState({someProperty})
-
-    // const formData = {};
-    //     for (let formElementIdentifier in this.state.orderForm) {
-    //         formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
-    //     }
- console.log(this.state.orderForm);
-}
-
+class formcomponent extends Component{
     state = {
         orderForm: {
             name: {
@@ -102,27 +79,7 @@ onInit = () =>{
         loading:false
     }
 
-    orderHandler = ( event ) => {
-        event.preventDefault();
-        const formData = {};
-        for (let formElementIdentifier in this.state.orderForm) {
-            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
-        }
-        this.setState({loading:true})
-        axios.post('/pages.json',formData)
-        .then(response => 
-            {
-                this.setState({loading:false});
-                this.props.history.push('/');
-                console.log(this.props.histroy)
-                console.log(response);
-            })
-        .catch(error => console.log(error));
-    }
-
-    
-
-    inputChangedHandler = (event, inputIdentifier) => {
+     inputChangedHandler = (event, inputIdentifier) => {
         const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier],{
                 value:event.target.value,
                 valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
@@ -139,11 +96,11 @@ onInit = () =>{
         this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
     }
 
-    onProps = () => {
-        console.log(this.props.histroy);
+    click = () =>{
+        console.log("cci")
     }
 
-    render () {
+    render(){
         const formElementsArray = [];
         for (let key in this.state.orderForm) {
             formElementsArray.push({
@@ -151,8 +108,9 @@ onInit = () =>{
                 config: this.state.orderForm[key]
             });
         }
+    
         let form = (
-            <form onSubmit={this.orderHandler}>
+            <form >
                 {formElementsArray.map(formElement => (
                     <Input 
                         key={formElement.id}
@@ -164,23 +122,24 @@ onInit = () =>{
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                <Button btnType="Success" disabled={!this.state.formIsValid}>SUBMIT</Button>
+                <Button btnType="Success" disabled={!this.state.Formisvalid}>SUBMIT</Button>
             </form>
         );
-        if ( this.state.loading ) {
-            form = <Spinner />;
-        }
-        return (
-            <div className={classes.ContactData}>
-                <h4>Enter your Page Data</h4>
-                {/* <Formcomponent orderForm={this.state.orderForm} Formisvalid={this.state.formIsValid} */}
-                {form}
-                <button onClick={this.onProps}>Click</button>
-                  />
-            </div>
-        );
+
+        return(
+            <div>
+            {form}
+        </div>
+        )
     }
+
+    
+
+ 
+
+
+    
 }
 
+export default formcomponent;
 
-export default withRouter( withErrorHandler(AddPageForm,axios)) ;

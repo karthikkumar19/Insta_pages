@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 import Pages from './Components/Pages/pages';
-import Addpageform from './Container/addpageform';
+import AddpageForm from './Container/addpageform';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 
 class App extends Component{
@@ -12,11 +13,14 @@ class App extends Component{
     return(
       <div>
         <h1>insta</h1>
-        <Pages/>
-        <Addpageform/>
-      </div>
+        <Switch>
+        <Route path="/add" component={() => <AddpageForm name={`Props through component`} />} />
+        <Route path="/" exact component={Pages} />
+        <Redirect to="/" />
+      </Switch>
+]      </div>
     )
   }
 }
 
-export default App;
+export default withRouter( App);
