@@ -19,6 +19,7 @@ class page extends Component {
                    <span> Language: <strong>{this.props.Lang}</strong>  </span>
                    <br></br>
                    <Button btnType="Success" clicked={this.props.edit} >Edit</Button>
+                   <Button btnType="Danger" clicked={this.props.delete} >DELETE</Button>
             </div>
         );
     }

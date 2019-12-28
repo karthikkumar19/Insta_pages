@@ -91,7 +91,8 @@ class AddPageForm extends Component {
         .then(response => 
             {
                 this.setState({loading:false})
-                console.log(response) })
+                console.log(response);
+            })
         .catch(error => console.log(error));
     }
 

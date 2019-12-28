@@ -22,41 +22,53 @@ state={
     changed:true
 }
 
-
-onEditHandler = () =>{
-
-    axios.put('/pages/-Lx7WiN-lFVzvhqz2Rhw.json',{
-        followers:"success",
-        instaId:"succ",
-        language:'woking',
-        name:"test_sucess",
-        pageLink:"succc"
+onDeleteHandler = () =>{
+    // const queryParams = '?orderBy="instaId"&equalTo="'+ id +  '"';
+    let id ="-Lx5TtXvbg6iAauJcKNy";
+    axios.get('/pages.json' )
+    .then(response => {  
+        console.log(response.data[0]);
+                // this.componentDidMount();
     })
-    .then(res => {
-        console.log(res);
-        this.setState({changed:true});
-        this.componentDidMount();
+    .catch(err => {
+        console.log(err);
+    });
+}
 
+onEditHandler = (name) =>{
 
-    }).catch(err => {
-        console.log(err)
-    })
-    // const queryParams = '?orderBy="instaId"&equalTo="'+ name +  '"';
-    // axios.get('/pages.json'+ queryParams )
-    // .then(response => {  
-    //     const selectedPages = [];
-    //     for (let key in response.data){
-    //         selectedPages.push({
-    //             ...response.data[key],
-    //             id:key
-    //         });}   
-    //     console.log(response.data);
-    //     this.setState({selectedPage:selectedPages});
-    //     console.log(this.state.selectedPage);
+    // axios.put('/pages/-Lx7WiN-lFVzvhqz2Rhw.json',{
+    //     followers:"success",
+    //     instaId:"succ",
+    //     language:'woking',
+    //     name:"test_sucess",
+    //     pageLink:"succc"
     // })
-    // .catch(err => {
-    //     console.log(err);
-    // });
+    // .then(res => {
+    //     console.log(res);
+    //     this.setState({changed:true});
+    //     this.componentDidMount();
+
+
+    // }).catch(err => {
+    //     console.log(err)
+    // })
+    const queryParams = '?orderBy="instaId"&equalTo="'+ name +  '"';
+    axios.get('/pages.json'+ queryParams )
+    .then(response => {  
+        // const selectedPages = [];
+        // for (let key in response.data){
+        //     selectedPages.push({
+        //         ...response.data[key],
+        //         id:key
+        //     });}   
+        console.log(response);
+        // this.setState({selectedPage:selectedPages});
+        // console.log(this.state.selectedPage);
+    })
+    .catch(err => {
+        console.log(err);
+    });
     console.log("working");
    
 }
@@ -72,8 +84,9 @@ componentDidMount() {
                 fetchedPages.push({
                     ...response.data[key],
                     id:key
-                });}   
-                console.log(response.data);
+                });
+            }   
+                console.log(response);
                 console.log(this.state.selectedPage);
             this.setState({loading:false,pages:fetchedPages,changed:false})
     
@@ -98,6 +111,7 @@ if(!this.state.loading){
           Page_link={page.pageLink}
           Lang={page.language}
           edit={() => this.onEditHandler(page.instaId)} 
+          delete={() => this.onDeleteHandler()}
           />
     ));
 }
