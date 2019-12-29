@@ -17,9 +17,10 @@ class App extends Component{
         <Layout>
         <Switch>
         <Route path="/" exact component={Pages} />
-        <Route path="/add" exact component={AddpageForm} />} />
-        <Redirect to="/" />
+        <Route path="/add" exact component={AddpageForm}  />
         <Route path="/:id"  component={Editpage} />
+        <Redirect to="/" />
+
       </Switch>
       </Layout>
      </div>

@@ -1,17 +1,67 @@
 
+@import url('https://fonts.googleapis.com/css?family=Anton|Oswald:600&display=swap');
+
 .Page {
     width: 80%;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
     padding: 10px;
+    color: white;
+    font-family: 'Oswald', sans-serif;
     margin: 10px auto;
     box-sizing: border-box;
+    border-radius: 20px;
+    background: #EECDA3;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #EF629F, #EECDA3);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #EF629F, #EECDA3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .pgName{
-    text-transform: 'capitalize';
+    font-size: 25px;
+    /* text-transform: 'capitalize';
     display: 'inline-block';
     margin: '0 8px';
     border: '1px solid #ccc';
-    padding: '5px';
+    padding: '5px'; */
+}
+
+
+
+.pgFollowers{
+    float: right;
+    margin-right: 10px;
+    color: white;
+    margin-top: -45px;
+    width: 90px;
+    height: 185px;
+    text-align: center;
+    background-color: #FFA987;
+    font-size: 40px;
+    font-family: 'Anton', sans-serif;
+}
+
+.pgFollowers h6{
+    font-size: 12px;
+    margin-top: -10px;
+
+
+}
+
+@media (max-width: 650px) {
+    .pgFollowers {
+        float: none;
+        font-size: 20px;
+        background: none;
+        width: 0px;
+        height: 0px;
+        margin-top: 0;
+        color: white;
+        font-family: 'Anton', sans-serif;
+    }
+
+    .pgFollowers h6{
+        display: none;
+    }
+
 }

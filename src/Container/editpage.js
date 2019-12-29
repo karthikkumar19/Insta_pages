@@ -168,7 +168,7 @@ componentDidMount(){
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                <Button btnType="Success" >SUBMIT</Button>
+                <Button btnType="Success" disabled={this.state.formIsValid} >UPDATE</Button>
             </form>
         );
         if ( this.state.loading ) {
@@ -176,7 +176,7 @@ componentDidMount(){
         }
         return (
             <div className={classes.ContactData}>
-                <h4>Enter your Page Data</h4>
+                <h4>Edit your Page Data</h4>
                 {form}
                 
             </div>
