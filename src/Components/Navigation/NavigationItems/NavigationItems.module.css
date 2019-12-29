@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+
+.NavigationItems {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 100%;
+    font-family: 'PT Sans', sans-serif;}
+
+@media (min-width: 500px) {
+    .NavigationItems {
+        flex-flow: row;
+    }
+}
+
+.DesktopOnly{
+    margin-right: 400px;
+    margin-left: 200px;
+    color:white;
+}
+
+@media (max-width: 1299px) {
+    .DesktopOnly {
+        display: none;
+    }
+}

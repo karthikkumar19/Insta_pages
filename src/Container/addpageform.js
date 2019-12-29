@@ -155,8 +155,7 @@ class AddPageForm extends Component {
             <div className={classes.ContactData}>
                 <h4>Enter your Page Data</h4>
                 {form}
-                <button onClick={this.onProps}>Click</button>
-                  />
+                
             </div>
         );
     }

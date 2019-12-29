@@ -4,6 +4,7 @@ import Pages from './Components/Pages/pages';
 import AddpageForm from './Container/addpageform';
 import Editpage from './Container/editpage';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import Layout from './hoc/Layout/Layout';
 
 
 class App extends Component{
@@ -13,14 +14,15 @@ class App extends Component{
   render(){
     return(
       <div>
-        <h1>insta</h1>
+        <Layout>
         <Switch>
-        <Route path="/add" component={() => <AddpageForm name={`Props through component`} />} />
-        <Route path="/:id" component={Editpage} />
         <Route path="/" exact component={Pages} />
+        <Route path="/add" exact component={AddpageForm} />} />
         <Redirect to="/" />
+        <Route path="/:id"  component={Editpage} />
       </Switch>
-]      </div>
+      </Layout>
+     </div>
     )
   }
 }

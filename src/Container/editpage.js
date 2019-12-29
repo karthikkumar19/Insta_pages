@@ -119,7 +119,6 @@ componentDidMount(){
         axios.put('/pages/'+ this.state.id + '.json',formData)
     .then(res => {
         console.log(res);
-        this.setState({changed:true});
           this.props.history.push('/');
     }).catch(err => {
         console.log(err);
@@ -179,8 +178,7 @@ componentDidMount(){
             <div className={classes.ContactData}>
                 <h4>Enter your Page Data</h4>
                 {form}
-                <button onClick={this.onProps}>Click</button>
-                  />
+                
             </div>
         );
     }
