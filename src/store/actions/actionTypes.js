@@ -1,0 +1,15 @@
+export const ADD_PAGE_START = 'ADD_PAGE_START';
+export const ADD_PAGE_SUCCESS = 'ADD_PAGE_SUCCESS';
+export const ADD_PAGE_FAIL = 'ADD_PAGE_FAIL';
+// export const PURCHASE_INIT = 'PURCHASE_INIT';
+
+export const FETCH_PAGES_START = 'FETCH_PAGES_START';
+export const FETCH_PAGES_SUCCESS = 'FETCH_PAGES_SUCCESS';
+export const FETCH_PAGES_FAIL = 'FETCH_PAGES_FAIL';
+
+export const AUTH_START = 'AUTH_START';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+
+export const SET_AUTH_REDIRECT_PATH = 'SET_AUTH_REDIRECT_PATH';
