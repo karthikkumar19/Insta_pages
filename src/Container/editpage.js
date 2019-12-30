@@ -8,7 +8,7 @@ import * as actions from '../store/actions/index';
 import Spinner from '../Components/UI/Spinner/Spinner';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import {updateObject, checkValidity} from '../shared/utility';
-import {withRouter, Redirect} from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 
 
 class Editpage extends Component {
