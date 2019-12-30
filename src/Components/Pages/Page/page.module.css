@@ -14,16 +14,17 @@
     background: #EECDA3;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #EF629F, #EECDA3);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #EF629F, #EECDA3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
+
+
 
 .ui{
     float: right;
     margin-right: 10px;
     color: white;
-    margin-top: -45px;
+    margin-top: -70px;
     width: 90px;
-    height: 125px;
+    height: 145px;
     text-align: center;
     background-color: #FFA987;
     font-size: 35px;
@@ -33,8 +34,6 @@ background: linear-gradient(to right, #EF629F, #EECDA3); /* W3C, IE 10+/ Edge, F
 .ui h6{
     font-size: 12px;
     margin-top: -10px;
-
-
 }
 
 .pgName{
@@ -52,9 +51,9 @@ background: linear-gradient(to right, #EF629F, #EECDA3); /* W3C, IE 10+/ Edge, F
     float: right;
     margin-right: 10px;
     color: white;
-    margin-top: -45px;
+    margin-top: -70px;
     width: 90px;
-    height: 185px;
+    height: 220px;
     text-align: center;
     background-color: #FFA987;
     font-size: 40px;
@@ -64,24 +63,47 @@ background: linear-gradient(to right, #EF629F, #EECDA3); /* W3C, IE 10+/ Edge, F
 .pgFollowers h6{
     font-size: 12px;
     margin-top: -10px;
+}
 
 
+@media (min-width : 650px){
+    .mobileView{
+        display: none;
+    }
 }
 
 @media (max-width: 650px) {
     .pgFollowers {
-        float: none;
+        /* float: none;
         font-size: 20px;
         background: none;
         width: 0px;
         height: 0px;
         margin-top: 0;
         color: white;
-        font-family: 'Anton', sans-serif;
-    }
-
-    .pgFollowers h6{
+        font-family: 'Anton', sans-serif; */
         display: none;
     }
 
+    .pgFollowers h6{
+        font-size: 12px;
+        display: none;
+        margin-left: -70px;
+    }
+
+    .ui{
+        /* float: none;
+        color: white;
+        margin-top: 0;
+        width: 0px;
+        height: 0px;
+        background: none;
+        font-size: 20px;
+        font-family: 'Anton', sans-serif;
+    } */
+    display: none;
+    }
+    .ui h6{
+        display: none;
+    }
 }

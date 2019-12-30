@@ -2,14 +2,23 @@ import React, {Component} from 'react';
 import './App.css';
 import Pages from './Components/Pages/pages';
 import { connect } from 'react-redux';
-import AddpageForm from './Container/addpageform';
-import Editpage from './Container/editpage';
-import Auth from './Container/Auth/Auth';
 import Logout from './Container/Auth/Logout/Logout';
 import * as actions from './store/actions/index';
+import asyncComponent from './hoc/asyncComponent/asynComponent';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import Layout from './hoc/Layout/Layout';
 
+const asyncAddpage = asyncComponent(() => {
+  return import('./Container/addpageform');
+});
+
+const asyncEdit = asyncComponent(() => {
+  return import('./Container/editpage');
+});
+
+const asyncAuth = asyncComponent(() => {
+  return import('./Container/Auth/Auth');
+});
 
 class App extends Component{
 
@@ -21,7 +30,7 @@ class App extends Component{
 
     let routes = (
       <Switch>
-        <Route path="/auth" component={Auth} />
+        <Route path="/auth" component={asyncAuth} />
         <Route path="/" exact component={Pages} />
         <Redirect to="/" />
       </Switch>
@@ -31,9 +40,9 @@ class App extends Component{
       routes = (
         <Switch>
           <Route path="/logout" component={Logout} />
-          <Route path="/auth" component={Auth} />
-          <Route path="/add" exact component={AddpageForm}  />
-        <Route path="/:id"  component={Editpage} />
+          <Route path="/auth" component={asyncAuth} />
+          <Route path="/add" exact component={asyncAddpage}  />
+        <Route path="/:id"  component={asyncEdit} />
         <Route path="/" exact component={Pages} />
           <Redirect to="/" />
         </Switch>

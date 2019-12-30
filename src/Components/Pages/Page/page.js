@@ -20,17 +20,19 @@ let ui= null
         return (
             <div className={classes.Page}>
                 <span className={classes.pgName}>Page Name: <strong> {this.props.pageName} </strong> 
-              
                 </span>
                     <br></br>
+                    <span className={classes.mobileView}>followers: <strong> {this.props.followers} </strong> 
+                </span>
+                <br />
                    <span className={ui}>  <strong>{this.props.followers}</strong> 
                    <br/>
                    <h6>followers</h6>
                    </span>
                    <br></br>
-                   <span> Insta ID: <strong>{this.props.Insta_id}</strong>  </span>
+                   <span> Insta ID   : <strong>{this.props.Insta_id}</strong>  </span>
                    <br></br>
-                   <span> Page Link: <strong>{this.props.Page_link}</strong>  </span>
+                   <span> Page Link: <a href={this.props.Page_link} target="blank"><strong>{this.props.Page_link}</strong> </a> </span>
                    <br></br>
                    <span> Language: <strong>{this.props.Lang}</strong>  </span>
                    <br></br>

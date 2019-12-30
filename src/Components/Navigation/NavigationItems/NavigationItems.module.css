@@ -17,12 +17,12 @@
 }
 
 .DesktopOnly{
-    margin-right: 400px;
-    margin-left: 200px;
+   margin-right: 500px;
+    position: relative;
     color:white;
 }
 
-@media (max-width: 1299px) {
+@media (max-width: 913px) {
     .DesktopOnly {
         display: none;
     }
