@@ -10,12 +10,7 @@ import {connect} from 'react-redux';
 
 class Pages extends Component {
 
-state={
-    pages:[],
-    name:"",
-    loading:true,
-    changed:true
-}
+
 
 onDeleteHandler = (id) =>{
 
@@ -33,15 +28,17 @@ onEditHandler = (name) =>{
 }
 componentDidMount(){
     this.props.onFetchPages();
+    // this.props.onAddPageInit();
+        
+        
   }
     render(){
 let pages = <Spinner/>
 if(!this.props.loading){
-    console.log(this.props.pages)
-    pages = this.props.pages.map(page => (
+    pages = this.props.pages.map((page,index) => (
         <Page 
           pageName={page.name}
-          key={page.id}
+          key={index}
           followers={page.followers}
           Insta_id={page.instaId}
           Page_link={page.pageLink}
@@ -70,7 +67,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        onFetchPages : () => dispatch(actions.fetchPage())
+        onFetchPages : () => dispatch(actions.fetchPage()),
+        onAddPageInit : () => dispatch(actions.addPageInit())
     }
 }
 

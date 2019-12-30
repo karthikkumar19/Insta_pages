@@ -6,9 +6,9 @@ const initialState = {
     loading:false,
     purchased:false
 }
-// const purchaseInit = (state) => {
-//     return updateObject(state,{purchased:false});
-// }
+const addPageInit = (state) => {
+    return updateObject(state,{purchased:false});
+}
 const addPageStart = (state) => {
     return updateObject(state,{loading:true});
 }
@@ -30,6 +30,7 @@ const fetchPagesSuccess = (state,action) => {
     return updateObject(state, {
         pages:action.pages,
         loading:false,
+        purchased:false
     });
 }
 const fetchPagesFail = (state) => {
@@ -38,7 +39,7 @@ const fetchPagesFail = (state) => {
 
 const orderReducer = (state = initialState, action) =>{
     switch (action.type){
-        // case actionTypes.PURCHASE_INIT:return purchaseInit(state);
+        case actionTypes.ADD_PAGE_INIT:return addPageInit(state);
         case actionTypes.ADD_PAGE_START:return addPageStart(state);
         case actionTypes.ADD_PAGE_SUCCESS:return addPageSuccess(state,action);
         case actionTypes.ADD_PAGE_FAIL:return addPageFail(state);

@@ -1,6 +1,7 @@
 export{
     addPage,
-    fetchPage
+    fetchPage,
+    addPageInit
     } from './page';
     
     // export {

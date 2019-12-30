@@ -1,5 +1,8 @@
 import firebase from 'firebase';
 
+// import firebase from 'firebase/app';
+// import 'firebase/<PACKAGE>';
+
 const config={
     apiKey: "AIzaSyBxsOgB2-qBaj-gzaQt9HeV2OzUDF5TBe4",
     authDomain: "insta-pages.firebaseapp.com",

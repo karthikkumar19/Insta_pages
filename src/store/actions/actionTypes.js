@@ -1,7 +1,7 @@
 export const ADD_PAGE_START = 'ADD_PAGE_START';
 export const ADD_PAGE_SUCCESS = 'ADD_PAGE_SUCCESS';
 export const ADD_PAGE_FAIL = 'ADD_PAGE_FAIL';
-// export const PURCHASE_INIT = 'PURCHASE_INIT';
+export const ADD_PAGE_INIT = 'ADD_PAGE_INIT';
 
 export const FETCH_PAGES_START = 'FETCH_PAGES_START';
 export const FETCH_PAGES_SUCCESS = 'FETCH_PAGES_SUCCESS';

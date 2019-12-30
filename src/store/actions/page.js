@@ -37,11 +37,11 @@ export const addPage = (pageData) => {
     }
 }
 
-// export const purchaseInit = () => {
-//     return {
-//         type:actionTypes.PURCHASE_INIT
-//     };
-// };
+export const addPageInit = () => {
+    return {
+        type:actionTypes.ADD_PAGE_INIT
+    };
+};
 
 export const fetchPagesSuccess = (pages) => {
     return{

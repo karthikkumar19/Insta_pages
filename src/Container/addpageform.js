@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import Button from '../Components/UI/Button/button';
+import {connect} from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 import classes from './addpageform.module.css';
 import axios from '../axios-orders';
 import Input from '../Components/UI/Input/input';
+import * as actions from '../store/actions/index';
 import Spinner from '../Components/UI/Spinner/Spinner';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import {updateObject, checkValidity} from '../shared/utility';
-import {withRouter} from 'react-router-dom';
 
 
 class AddPageForm extends Component {
+
+
 
     state = {
         orderForm: {
@@ -80,7 +84,6 @@ class AddPageForm extends Component {
             },
         },
         formIsValid: false,
-        loading:false
     }
 
     orderHandler = ( event ) => {
@@ -89,16 +92,8 @@ class AddPageForm extends Component {
         for (let formElementIdentifier in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
-        this.setState({loading:true})
-        axios.post('/pages.json',formData)
-        .then(response => 
-            {
-                this.setState({loading:false});
-                this.props.history.push('/');
-                console.log(this.props.histroy)
-                console.log(response);
-            })
-        .catch(error => console.log(error));
+
+        this.props.onAddPage(formData);
     }
 
     
@@ -132,7 +127,10 @@ class AddPageForm extends Component {
                 config: this.state.orderForm[key]
             });
         }
+        const purchasedRedirect = this.props.purchased ? <Redirect to='/' /> : null;
         let form = (
+            <div>
+            {purchasedRedirect}
             <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formElement => (
                     <Input 
@@ -147,8 +145,9 @@ class AddPageForm extends Component {
                 ))}
                 <Button btnType="Success" disabled={!this.state.formIsValid}>SUBMIT</Button>
             </form>
+            </div>
         );
-        if ( this.state.loading ) {
+        if ( this.props.loading ) {
             form = <Spinner />;
         }
         return (
@@ -161,5 +160,20 @@ class AddPageForm extends Component {
     }
 }
 
+const mapStateToProps = state =>{
+    return{
+        loading:state.page.loading,
+        purchased:state.page.purchased
+        // token: state.auth.token,
+        // userId:state.auth.userId
+    }
+};
 
-export default withRouter( withErrorHandler(AddPageForm,axios)) ;
+const mapDispatchToProps = dispatch => {
+    return{
+        onAddPage : (pageData) => dispatch(actions.addPage(pageData))
+    }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(AddPageForm,axios));
