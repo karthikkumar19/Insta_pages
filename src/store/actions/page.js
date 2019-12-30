@@ -29,10 +29,10 @@ export const addPage = (pageData) => {
         dispatch (addPageStart());
         axios.post( '/pages.json', pageData )
         .then( response => {
-            dispatch(purchaseBurgerSuccess(response.data.name, pageData));
+            dispatch(addPageSuccess(response.data.name, pageData));
         } )
         .catch( error => {
-            dispatch(purchaseBurgerFail(error));
+            dispatch(addPageFail(error));
         } );
     }
 }
@@ -68,6 +68,7 @@ export const fetchPage = ( ) => {
         dispatch(fetchPagesStart());
         // const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
         const wordRef = firebase.database().ref('pages');
+        console.log(wordRef);
     wordRef.on('value', (snapshot) => {
       let words = snapshot.val();
       let newState =[];
@@ -81,10 +82,8 @@ export const fetchPage = ( ) => {
           language:words[name].language
         });
       }
-       dispatch(fetchOrdersSuccess(newState));
+       dispatch(fetchPagesSuccess(newState));
             })
-            .catch(err => {
-                dispatch(fetchOrdersFail(err));
-            });
+            
     }
 }

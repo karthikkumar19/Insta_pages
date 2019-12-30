@@ -29,7 +29,7 @@ const fetchPagesStart = (state) => {
 const fetchPagesSuccess = (state,action) => {
     return updateObject(state, {
         pages:action.pages,
-        loading:false
+        loading:false,
     });
 }
 const fetchPagesFail = (state) => {

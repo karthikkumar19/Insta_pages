@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import Page from './Page/page';
 import Spinner from '../UI/Spinner/Spinner';
 import axios from '../../axios-orders';
-import firebase from '../../firebase';
+import * as actions from '../../store/actions/index';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import {connect} from 'react-redux';
+// import firebase from '../../firebase';
 
 
 class Pages extends Component {
@@ -29,28 +32,13 @@ onEditHandler = (name) =>{
     this.props.history.push('/' + name);   
 }
 componentDidMount(){
-    const wordRef = firebase.database().ref('pages');
-    wordRef.on('value', (snapshot) => {
-      let words = snapshot.val();
-      let newState =[];
-      for (let name in words){
-        newState.push({
-          id:name,
-          name:words[name].name,
-          followers:words[name].followers,
-          instaId:words[name].instaId,
-          pageLink:words[name].pageLink,
-          language:words[name].language
-        });
-      }
-      console.log(newState[0]);
-      this.setState({loading:false,pages:newState,changed:false})
-    })
+    this.props.onFetchPages();
   }
     render(){
 let pages = <Spinner/>
-if(!this.state.loading){
-    pages = this.state.pages.map(page => (
+if(!this.props.loading){
+    console.log(this.props.pages)
+    pages = this.props.pages.map(page => (
         <Page 
           pageName={page.name}
           key={page.id}
@@ -71,4 +59,19 @@ if(!this.state.loading){
     }
 }
 
-export default Pages;
+const mapStateToProps = state => {
+    return{
+        pages:state.page.pages,
+        loading:state.page.loading,
+        // token:state.auth.token,
+        // userId:state.auth.userId
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        onFetchPages : () => dispatch(actions.fetchPage())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (withErrorHandler(Pages, axios)); 
