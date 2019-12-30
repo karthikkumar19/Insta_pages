@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Page from '../Page/page';
+import Page from './Page/page';
 import Spinner from '../UI/Spinner/Spinner';
 import axios from '../../axios-orders';
 import firebase from '../../firebase';

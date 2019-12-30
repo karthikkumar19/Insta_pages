@@ -1,6 +1,6 @@
 import React ,{Component} from 'react';
 import classes from './page.module.css';
-import Button from '../UI/Button/button';
+import Button from '../../UI/Button/button';
 
 class page extends Component {
 
