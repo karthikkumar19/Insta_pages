@@ -6,13 +6,24 @@ class page extends Component {
 
     
     render(){
+let ui= null
+
+    if(this.props.isAuthenticated){
+            ui = classes.pgFollowers
+    }
+    else {
+        ui = classes.ui
+    }
+    
+
+
         return (
             <div className={classes.Page}>
                 <span className={classes.pgName}>Page Name: <strong> {this.props.pageName} </strong> 
               
                 </span>
                     <br></br>
-                   <span className={classes.pgFollowers}>  <strong>{this.props.followers}</strong> 
+                   <span className={ui}>  <strong>{this.props.followers}</strong> 
                    <br/>
                    <h6>followers</h6>
                    </span>
@@ -23,12 +34,17 @@ class page extends Component {
                    <br></br>
                    <span> Language: <strong>{this.props.Lang}</strong>  </span>
                    <br></br>
-                   <Button btnType="Success"  clicked={this.props.edit} >
-                   <i className="fa fa-edit"></i>
-                   </Button>
-                   <Button btnType="Danger" clicked={this.props.delete} >
-                   <i className="fa fa-trash"></i>
-                   </Button>
+                   {
+                       this.props.isAuthenticated ?  <Button btnType="Success"  clicked={this.props.edit} >
+                       <i className="fa fa-edit"></i>
+                       </Button> : null
+                   }
+                  {
+                      this.props.isAuthenticated ? <Button btnType="Danger" clicked={this.props.delete} >
+                      <i className="fa fa-trash"></i>
+                      </Button> : null
+                  }
+                   
             </div>
         );
     }

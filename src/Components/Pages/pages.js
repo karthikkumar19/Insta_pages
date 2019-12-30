@@ -43,6 +43,7 @@ if(!this.props.loading){
           Insta_id={page.instaId}
           Page_link={page.pageLink}
           Lang={page.language}
+          isAuthenticated={this.props.isAuthenticated}
           edit={() => this.onEditHandler(page.id)} 
           delete={() => this.onDeleteHandler(page.id)}
           />
@@ -60,7 +61,8 @@ const mapStateToProps = state => {
     return{
         pages:state.page.pages,
         loading:state.page.loading,
-        // token:state.auth.token,
+        isAuthenticated: state.auth.token !== null
+         // token:state.auth.token,
         // userId:state.auth.userId
     }
 }

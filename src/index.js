@@ -7,6 +7,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import thunk from 'redux-thunk';
+import authReducer from './store/reducers/auth';
 import pageReducer from './store/reducers/page';
 import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 
@@ -14,7 +15,8 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
-    page : pageReducer
+    page : pageReducer,
+    auth : authReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

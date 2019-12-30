@@ -17,6 +17,26 @@ background: linear-gradient(to right, #EF629F, #EECDA3); /* W3C, IE 10+/ Edge, F
 
 }
 
+.ui{
+    float: right;
+    margin-right: 10px;
+    color: white;
+    margin-top: -45px;
+    width: 90px;
+    height: 125px;
+    text-align: center;
+    background-color: #FFA987;
+    font-size: 35px;
+    font-family: 'Anton', sans-serif;
+}
+
+.ui h6{
+    font-size: 12px;
+    margin-top: -10px;
+
+
+}
+
 .pgName{
     font-size: 25px;
     /* text-transform: 'capitalize';
