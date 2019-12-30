@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Button from '../Components/UI/Button/button';
 import classes from './addpageform.module.css';
+import {connect} from 'react-redux';
 import axios from '../axios-orders';
 import Input from '../Components/UI/Input/input';
+import * as actions from '../store/actions/index';
 import Spinner from '../Components/UI/Spinner/Spinner';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import {updateObject, checkValidity} from '../shared/utility';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
 
 
 class Editpage extends Component {
@@ -104,7 +106,6 @@ componentDidMount(){
             },
         },
         formIsValid: false,
-        loading:false,
         id:''
     }
 
@@ -115,14 +116,7 @@ componentDidMount(){
         for (let formElementIdentifier in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
-        this.setState({loading:true});
-        axios.put('/pages/'+ this.state.id + '.json',formData)
-    .then(res => {
-        console.log(res);
-          this.props.history.push('/');
-    }).catch(err => {
-        console.log(err);
-    })
+        this.props.onEditPage(this.state.id,formData);
     }
     
 
@@ -143,9 +137,7 @@ componentDidMount(){
         this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
     }
 
-    onProps = () => {
-        console.log(this.props.histroy);
-    }
+    
 
     render () {
         const formElementsArray = [];
@@ -155,7 +147,10 @@ componentDidMount(){
                 config: this.state.orderForm[key]
             });
         }
+        const purchasedRedirect = this.props.purchased ? <Redirect to='/' /> : null;
         let form = (
+            <div>
+                {purchasedRedirect}
             <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formElement => (
                     <Input 
@@ -170,8 +165,9 @@ componentDidMount(){
                 ))}
                 <Button btnType="Success" disabled={this.state.formIsValid} >UPDATE</Button>
             </form>
+            </div>
         );
-        if ( this.state.loading ) {
+        if ( this.props.loading ) {
             form = <Spinner />;
         }
         return (
@@ -184,5 +180,21 @@ componentDidMount(){
     }
 }
 
+const mapStateToProps = state =>{
+    return{
+        loading:state.page.loading,
+        purchased:state.page.purchased
+        // token: state.auth.token,
+        // userId:state.auth.userId
+    }
+};
 
-export default withRouter( withErrorHandler(Editpage,axios)) ;
+const mapDispatchToProps = dispatch => {
+    return{
+        onEditPage : (id,pageData) => dispatch(actions.editPage(id,pageData))
+    }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Editpage,axios));
+

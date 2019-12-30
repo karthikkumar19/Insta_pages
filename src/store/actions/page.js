@@ -87,3 +87,42 @@ export const fetchPage = ( ) => {
             
     }
 }
+
+
+export const editPageSuccess = () => {
+    return{
+        type:actionTypes.EDIT_PAGE_SUCCESS,
+    };
+};
+
+export const editPageFail = (error) => {
+    return{
+        type: actionTypes.EDIT_PAGE_FAIL,
+        error: error
+    };
+}
+
+export const editPageStart = () =>{
+    return{
+        type:actionTypes.EDIT_PAGE_START
+    };
+}
+export const editPageInit = () =>{
+    return{
+        type:actionTypes.EDIT_PAGE_INIT
+    };
+}
+
+export const editPage = (id,pageData) => {
+    return dispatch => {
+        dispatch (editPageStart());
+        axios.put('/pages/'+ id + '.json',pageData)
+    .then(res => {
+        console.log(res);
+        dispatch(editPageSuccess());
+    }).catch(err => {
+        console.log(err);
+        dispatch(editPageFail(err));
+    })
+    }
+}

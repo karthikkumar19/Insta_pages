@@ -1,9 +1,11 @@
 export{
     addPage,
     fetchPage,
-    addPageInit
+    addPageInit,
+    editPage
     } from './page';
     
+
     // export {
     //     auth,
     //     logout,

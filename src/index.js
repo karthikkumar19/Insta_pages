@@ -14,7 +14,7 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
-    page : pageReducer,
+    page : pageReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
