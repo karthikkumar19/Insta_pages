@@ -151,7 +151,7 @@ class AddPageForm extends Component {
             form = <Spinner />;
         }
         return (
-            <div className={classes.ContactData}>
+            <div className={classes.PageData}>
                 <h4>Enter your Page Data</h4>
                 {form}
                 

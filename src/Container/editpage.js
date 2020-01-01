@@ -171,7 +171,7 @@ componentDidMount(){
             form = <Spinner />;
         }
         return (
-            <div className={classes.ContactData}>
+            <div className={classes.EditData}>
                 <h4>Edit your Page Data</h4>
                 {form}
                 
