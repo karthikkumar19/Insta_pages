@@ -10,7 +10,15 @@ import {connect} from 'react-redux';
 
 class Pages extends Component {
 
+    state={
+        prices:[]
+    }
 
+    sortAscending = () => {
+        const  pages  = this.state.prices;
+        pages.sort((a, b) => a - b)    
+        console.log(pages);
+      }
 
 onDeleteHandler = (id) =>{
 
@@ -22,12 +30,20 @@ onDeleteHandler = (id) =>{
     .catch(err => {
         console.log(err);
     });
+
 }
 onEditHandler = (name) =>{
     this.props.history.push('/' + name);   
+    let prices = this.props.pages.map(p => p.followers);
+    let price = [...prices];
+     this.state.prices = price;
+    console.log(this.state.prices);
+    this.sortAscending();
 }
 componentDidMount(){
     this.props.onFetchPages();
+   
+    // this.sortAscending();
     // this.props.onAddPageInit();
         
         
