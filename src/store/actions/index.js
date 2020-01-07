@@ -3,7 +3,8 @@ export{
     fetchPage,
     addPageInit,
     editPage,
-    ascPage
+    ascPage,
+    dscPage
     } from './page';
     
 

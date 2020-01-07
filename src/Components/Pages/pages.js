@@ -9,14 +9,14 @@ import {connect} from 'react-redux';
 
 class Pages extends Component {
 
-    state={
-        prices:[]
-    }
 
     sortAscending = () => {
-       this.props.onAscPage(this.props.pages);
-        
+       this.props.onAscPage(this.props.pages);   
       }
+
+    sortDescending = () => {
+        this.props.onDscPage(this.props.pages);
+    }
 
 onDeleteHandler = (id) =>{
 
@@ -41,7 +41,6 @@ componentDidMount(){
     render(){
 let pages = <Spinner/>
 if(!this.props.loading){
-    console.log(this.props.pages);
     pages = this.props.pages.map((page,index) => (
         <Page 
           pageName={page.name}
@@ -60,6 +59,7 @@ if(!this.props.loading){
             <div>
                 {pages}      
                 <button onClick={this.sortAscending}>Ascending</button>    
+                <button onClick={this.sortDescending}>Descending</button>
             </div>
         )
     }
@@ -80,7 +80,8 @@ const mapDispatchToProps = dispatch => {
     return{
         onFetchPages : () => dispatch(actions.fetchPage()),
         onAddPageInit : () => dispatch(actions.addPageInit()),
-        onAscPage : (page) => dispatch(actions.ascPage(page))
+        onAscPage : (page) => dispatch(actions.ascPage(page)),
+        onDscPage : (page) => dispatch(actions.dscPage(page))
     }
 }
 
