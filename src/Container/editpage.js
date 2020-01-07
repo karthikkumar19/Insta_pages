@@ -14,6 +14,7 @@ import { Redirect} from 'react-router-dom';
 class Editpage extends Component {
 
 componentDidMount(){
+    console.log(this.props.pages);
     console.log(this.props.match.params.id);
     let id = this.props.match.params.id;
     axios.get('/pages/' +id+ '.json' )
@@ -183,6 +184,7 @@ componentDidMount(){
 const mapStateToProps = state =>{
     return{
         loading:state.page.loading,
+        pages:state.page.pages,
         purchased:state.page.purchased
         // token: state.auth.token,
         // userId:state.auth.userId

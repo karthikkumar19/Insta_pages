@@ -5,7 +5,6 @@ import axios from '../../axios-orders';
 import * as actions from '../../store/actions/index';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
-// import firebase from '../../firebase';
 
 
 class Pages extends Component {
@@ -15,9 +14,8 @@ class Pages extends Component {
     }
 
     sortAscending = () => {
-        const  pages  = this.state.prices;
-        pages.sort((a, b) => a - b)    
-        console.log(pages);
+       this.props.onAscPage(this.props.pages);
+        
       }
 
 onDeleteHandler = (id) =>{
@@ -34,23 +32,16 @@ onDeleteHandler = (id) =>{
 }
 onEditHandler = (name) =>{
     this.props.history.push('/' + name);   
-    let prices = this.props.pages.map(p => p.followers);
-    let price = [...prices];
-     this.state.prices = price;
-    console.log(this.state.prices);
-    this.sortAscending();
 }
 componentDidMount(){
-    this.props.onFetchPages();
-   
-    // this.sortAscending();
-    // this.props.onAddPageInit();
-        
-        
+        this.props.onFetchPages();     
   }
+
+
     render(){
 let pages = <Spinner/>
 if(!this.props.loading){
+    console.log(this.props.pages);
     pages = this.props.pages.map((page,index) => (
         <Page 
           pageName={page.name}
@@ -67,7 +58,8 @@ if(!this.props.loading){
 }
         return(
             <div>
-                {pages}          
+                {pages}      
+                <button onClick={this.sortAscending}>Ascending</button>    
             </div>
         )
     }
@@ -77,6 +69,7 @@ const mapStateToProps = state => {
     return{
         pages:state.page.pages,
         loading:state.page.loading,
+        fetched:state.page.fetched,
         isAuthenticated: state.auth.token !== null
          // token:state.auth.token,
         // userId:state.auth.userId
@@ -86,7 +79,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         onFetchPages : () => dispatch(actions.fetchPage()),
-        onAddPageInit : () => dispatch(actions.addPageInit())
+        onAddPageInit : () => dispatch(actions.addPageInit()),
+        onAscPage : (page) => dispatch(actions.ascPage(page))
     }
 }
 

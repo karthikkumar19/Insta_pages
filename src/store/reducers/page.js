@@ -4,6 +4,7 @@ import {updateObject} from '../../shared/utility';
 const initialState = {
     pages:[],
     loading:false,
+    fetched:false,
     purchased:false
 }
 const addPageInit = (state) => {
@@ -30,7 +31,8 @@ const fetchPagesSuccess = (state,action) => {
     return updateObject(state, {
         pages:action.pages,
         loading:false,
-        purchased:false
+        purchased:false,
+        fetched:true
     });
 }
 const fetchPagesFail = (state) => {

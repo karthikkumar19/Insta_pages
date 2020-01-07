@@ -63,6 +63,15 @@ export const fetchPagesStart = () => {
     };
 };
 
+export const ascPage = (newState) => {
+    return dispatch => {
+        dispatch(fetchPagesStart());
+        newState.sort((a, b) => parseFloat(a.followers) - parseFloat(b.followers));
+        console.log(newState);
+        dispatch(fetchPagesSuccess(newState));
+    }
+}
+
 export const fetchPage = ( ) => {
     return dispatch => {
         dispatch(fetchPagesStart());
