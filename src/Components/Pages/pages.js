@@ -5,6 +5,7 @@ import axios from '../../axios-orders';
 import * as actions from '../../store/actions/index';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
+import { Form, FormControl, Button } from 'react-bootstrap';
 
 
 class Pages extends Component {
@@ -57,9 +58,11 @@ if(!this.props.loading){
 }
         return(
             <div>
-                {pages}      
-                <button onClick={this.sortAscending}>Ascending</button>    
-                <button onClick={this.sortDescending}>Descending</button>
+                {pages}    
+                <Form inline>
+      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+      <Button variant="outline-success">Search</Button>
+    </Form>
             </div>
         )
     }
