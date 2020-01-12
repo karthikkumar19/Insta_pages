@@ -4,6 +4,7 @@ import Aux from '../Aux/Aux';
 import classes from './Layout.module.css';
 import Toolbar from '../../Components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../Components/Navigation/SideDrawer/SideDrawer';
+import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
     state = {
@@ -25,7 +26,8 @@ class Layout extends Component {
             <Aux>
                 <Toolbar
                 isAuth={this.props.isAuthenticated}
-                 drawerToggleClicked={this.sideDrawerToggleHandler} />
+                 drawerToggleClicked={this.sideDrawerToggleHandler} ascpage={() => this.props.onAscPage(this.props.pages)}
+                 dscpage={() => this.props.onDscPage(this.props.pages)} />
                 <SideDrawer
                     isAuth={this.props.isAuthenticated}
                     open={this.state.showSideDrawer}
@@ -40,8 +42,16 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated : state.auth.token !== null
+        isAuthenticated : state.auth.token !== null,
+        pages: state.page.pages
     };
 };
+const mapDispatchToProps = dispatch => {
+    return{
+        onAscPage : (page) => dispatch(actions.ascPage(page)),
+        onDscPage : (page) => dispatch(actions.dscPage(page)),
+        onSearchpage : (pgname) => dispatch(actions.searchPage(pgname))
+    }
+}
 
-export default connect(mapStateToProps) (Layout);
+export default connect(mapStateToProps,mapDispatchToProps) (Layout);
