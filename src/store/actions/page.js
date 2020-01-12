@@ -83,7 +83,7 @@ export const ascPage = (newState) => {
 
 export const searchPage = (name) => {
     return dispatch => {
-        const queryParams = 'orderBy="name"&equalTo="' + name + '"';
+        const queryParams = '?orderBy="name"&equalTo="' + name + '"';
         axios.get('/pages.json' + queryParams)
             .then(res => {
                 const fetchedOrders = [];
@@ -121,6 +121,7 @@ export const fetchPage = ( ) => {
           language:words[name].language
         });
       }
+      console.log(newState);
        dispatch(fetchPagesSuccess(newState));
             })
             

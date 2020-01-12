@@ -51,7 +51,7 @@ componentDidMount(){
     onSearchData = (event) => {
         event.preventDefault();
             console.log(this.state.searchName);
-
+this.props.onSearchpage(this.state.searchName);
     }
 
     // submitSearch = ()
@@ -104,7 +104,7 @@ const mapDispatchToProps = dispatch => {
         onAddPageInit : () => dispatch(actions.addPageInit()),
         onAscPage : (page) => dispatch(actions.ascPage(page)),
         onDscPage : (page) => dispatch(actions.dscPage(page)),
-        onSearchpage : () => dispatch(actions.searchPage())
+        onSearchpage : (pgname) => dispatch(actions.searchPage(pgname))
     }
 }
 

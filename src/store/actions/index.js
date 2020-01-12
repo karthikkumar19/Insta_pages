@@ -4,7 +4,8 @@ export{
     addPageInit,
     editPage,
     ascPage,
-    dscPage
+    dscPage,
+    searchPage
     } from './page';
     
 
