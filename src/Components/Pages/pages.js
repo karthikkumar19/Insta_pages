@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import classes from './pages.module.css';
 
 
+
 class Pages extends Component {
 
     state={
@@ -54,7 +55,7 @@ componentDidMount(){
 this.props.onSearchpage(this.state.searchName);
     }
 
-    // submitSearch = ()
+   
 
     render(){
 let pages = <Spinner/>
@@ -75,12 +76,14 @@ if(!this.props.loading){
 }
         return(
             <div >
-                <div className={classes.form}>
+                <div className={classes.form} >
                     <form onSubmit={(event) => this.onSearchData(event)} >
                     <input type="text" placeholder="enter the page name to search" onChange={(event) => this.updateInput(event)}></input>
                 <button >Search</button>
                     </form>    
+                    
                 </div>
+
                 {pages}          
             </div>
         )

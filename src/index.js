@@ -9,6 +9,7 @@ import * as serviceWorker from './serviceWorker';
 import thunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
 import pageReducer from './store/reducers/page';
+
 import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 
 
