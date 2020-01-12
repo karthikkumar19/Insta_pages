@@ -34,6 +34,7 @@ const fetchPagesSuccess = (state,action) => {
         purchased:false,
         fetched:true
     });
+    
 }
 const fetchPagesFail = (state) => {
     return updateObject(state,{loading:false});

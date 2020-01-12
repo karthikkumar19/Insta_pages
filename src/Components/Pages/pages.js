@@ -5,11 +5,14 @@ import axios from '../../axios-orders';
 import * as actions from '../../store/actions/index';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
-import { Form, FormControl, Button } from 'react-bootstrap';
+import classes from './pages.module.css';
 
 
 class Pages extends Component {
 
+    state={
+        searchName:''
+    }
 
     sortAscending = () => {
        this.props.onAscPage(this.props.pages);   
@@ -38,6 +41,20 @@ componentDidMount(){
         this.props.onFetchPages();     
   }
 
+  updateInput(event){
+    let name = event.target.value;
+    let searchName = this.state.searchName;
+    searchName = name;
+    this.setState({searchName:searchName});
+    }
+
+    onSearchData = (event) => {
+        event.preventDefault();
+            console.log(this.state.searchName);
+
+    }
+
+    // submitSearch = ()
 
     render(){
 let pages = <Spinner/>
@@ -57,12 +74,14 @@ if(!this.props.loading){
     ));
 }
         return(
-            <div>
-                {pages}    
-                <Form inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-success">Search</Button>
-    </Form>
+            <div >
+                <div className={classes.form}>
+                    <form onSubmit={(event) => this.onSearchData(event)} >
+                    <input type="text" placeholder="enter the page name to search" onChange={(event) => this.updateInput(event)}></input>
+                <button >Search</button>
+                    </form>    
+                </div>
+                {pages}          
             </div>
         )
     }
@@ -84,7 +103,8 @@ const mapDispatchToProps = dispatch => {
         onFetchPages : () => dispatch(actions.fetchPage()),
         onAddPageInit : () => dispatch(actions.addPageInit()),
         onAscPage : (page) => dispatch(actions.ascPage(page)),
-        onDscPage : (page) => dispatch(actions.dscPage(page))
+        onDscPage : (page) => dispatch(actions.dscPage(page)),
+        onSearchpage : () => dispatch(actions.searchPage())
     }
 }
 

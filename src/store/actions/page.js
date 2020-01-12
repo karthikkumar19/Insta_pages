@@ -48,6 +48,7 @@ export const fetchPagesSuccess = (pages) => {
         type:actionTypes.FETCH_PAGES_SUCCESS,
         pages:pages
     };
+    
 };
 
 export const fetchPagesFail = (error) =>{
@@ -77,6 +78,27 @@ export const ascPage = (newState) => {
         dispatch(fetchPagesStart());
         newState.sort((a, b) => parseFloat(a.followers) - parseFloat(b.followers));
         dispatch(fetchPagesSuccess(newState));
+    }
+}
+
+export const searchPage = (name) => {
+    return dispatch => {
+        const queryParams = 'orderBy="name"&equalTo="' + name + '"';
+        axios.get('/pages.json' + queryParams)
+            .then(res => {
+                const fetchedOrders = [];
+                for (let key in res.data) {
+                    fetchedOrders.push({
+                        ...res.data[key],
+                        id: key
+                    });
+                }
+                console.log(fetchedOrders)
+                // dispatch(fetchPagessSuccess(fetchedOrders));
+            })
+            .catch(err => {
+                dispatch(fetchPagesFail(err));
+            });
     }
 }
 
