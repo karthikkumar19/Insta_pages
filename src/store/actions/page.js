@@ -93,8 +93,12 @@ export const searchPage = (name) => {
                         id: key
                     });
                 }
-                console.log(fetchedOrders)
-                // dispatch(fetchPagessSuccess(fetchedOrders));
+                console.log(fetchedOrders.length)
+                if(fetchedOrders.length !==0){
+                    dispatch(fetchPagesSuccess(fetchedOrders));
+                }else{
+                    dispatch(fetchPage());
+                }
             })
             .catch(err => {
                 dispatch(fetchPagesFail(err));
@@ -105,7 +109,6 @@ export const searchPage = (name) => {
 export const fetchPage = ( ) => {
     return dispatch => {
         dispatch(fetchPagesStart());
-        // const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
         const wordRef = firebase.database().ref('pages');
         console.log(wordRef);
     wordRef.on('value', (snapshot) => {
