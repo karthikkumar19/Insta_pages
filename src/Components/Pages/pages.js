@@ -12,7 +12,8 @@ import classes from './pages.module.css';
 class Pages extends Component {
 
     state={
-        searchName:''
+        searchName:'',
+        pageId:''
     }
 
     sortAscending = () => {
@@ -49,10 +50,17 @@ componentDidMount(){
     this.setState({searchName:searchName});
     }
 
+    updatesecInput(event){
+        let name = event.target.value;
+        let pageId = this.state.pageId;
+        pageId = name;
+        this.setState({pageId:pageId});
+        }
+
     onSearchData = (event) => {
         event.preventDefault();
             console.log(this.state.searchName);
-this.props.onSearchpage(this.state.searchName);
+this.props.onSearchpage(this.state.searchName,this.state.pageId);
     }
 
    
@@ -79,10 +87,12 @@ if(!this.props.loading){
                 <div className={classes.form} >
                     <form onSubmit={(event) => this.onSearchData(event)} >
                     <input type="text" placeholder="enter the page name to search" onChange={(event) => this.updateInput(event)}></input>
+                    <input type="text" placeholder="enter the page id to search" onChange={(event) => this.updatesecInput(event)}></input>
                 <button >Search</button>
                     </form>    
                     
                 </div>
+                
 
                 {pages}          
             </div>
@@ -107,7 +117,7 @@ const mapDispatchToProps = dispatch => {
         onAddPageInit : () => dispatch(actions.addPageInit()),
         onAscPage : (page) => dispatch(actions.ascPage(page)),
         onDscPage : (page) => dispatch(actions.dscPage(page)),
-        onSearchpage : (pgname) => dispatch(actions.searchPage(pgname))
+        onSearchpage : (pgname,pageid) => dispatch(actions.searchPage(pgname,pageid))
     }
 }
 

@@ -81,28 +81,39 @@ export const ascPage = (newState) => {
     }
 }
 
-export const searchPage = (name) => {
+export const searchPage = (name,pageId) => {
     return dispatch => {
-        const queryParams = '?orderBy="name"&equalTo="' + name + '"';
-        axios.get('/pages.json' + queryParams)
-            .then(res => {
-                const fetchedOrders = [];
-                for (let key in res.data) {
-                    fetchedOrders.push({
-                        ...res.data[key],
-                        id: key
-                    });
-                }
-                console.log(fetchedOrders.length)
-                if(fetchedOrders.length !==0){
-                    dispatch(fetchPagesSuccess(fetchedOrders));
-                }else{
-                    dispatch(fetchPage());
-                }
-            })
-            .catch(err => {
-                dispatch(fetchPagesFail(err));
-            });
+        const ref = firebase.database().ref('pages');
+        ref
+  .orderByChild('name')
+  .equalTo(name)
+  .on('child_added', function(snapshot) { 
+      var movie = snapshot.val();
+      console.log(movie.stops);
+      if (movie.stops[0] === pageId) {
+          console.log(movie);
+      }
+  });
+        // const queryParams = '?orderBy="name&instaId"&equalTo="' + name + '"';
+        // axios.get('/pages.json' + queryParams)
+        //     .then(res => {
+        //         const fetchedOrders = [];
+        //         for (let key in res.data) {
+        //             fetchedOrders.push({
+        //                 ...res.data[key],
+        //                 id: key
+        //             });
+        //         }
+        //         console.log(fetchedOrders.length)
+        //         if(fetchedOrders.length !==0){
+        //             dispatch(fetchPagesSuccess(fetchedOrders));
+        //         }else{
+        //             dispatch(fetchPage());
+        //         }
+        //     })
+        //     .catch(err => {
+        //         dispatch(fetchPagesFail(err));
+        //     });
     }
 }
 
