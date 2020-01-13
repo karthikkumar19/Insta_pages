@@ -89,10 +89,15 @@ export const searchPage = (name,pageId) => {
   .equalTo(name)
   .on('child_added', function(snapshot) { 
       var movie = snapshot.val();
-      console.log(movie.stops);
-      if (movie.stops[0] === pageId) {
-          console.log(movie);
-      }
+      let stop = movie.stops;
+    //   console.log(stop[]);
+    if(stop[pageId]){
+        console.log(movie.stops)
+    }
+
+     
+      
+     
   });
         // const queryParams = '?orderBy="name&instaId"&equalTo="' + name + '"';
         // axios.get('/pages.json' + queryParams)
