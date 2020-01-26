@@ -82,23 +82,46 @@ export const ascPage = (newState) => {
 }
 
 export const searchPage = (name,pageId) => {
-    return dispatch => {
-        const ref = firebase.database().ref('pages');
-        ref
-  .orderByChild('name')
-  .equalTo(name)
-  .on('child_added', function(snapshot) { 
-      var movie = snapshot.val();
-      let stop = movie.stops;
-    //   console.log(stop[]);
-    if(stop[pageId]){
-        console.log(movie.stops)
-    }
+    
+
+//     return dispatch => {
+//         const ref = firebase.database().ref('pages');
+//         ref
+// //   .orderByChild('stops/periyar')
+// //   .equalTo("tpk")
+//   .on('value', function(snapshot) { 
+//       var movie = snapshot.val();
+//       let newstate=[];
+//       for(let name in movie){
+//         //   if(movie[name].stops)
+//         let stop = movie[name].stops;
+//         newstate.push(stop);
+//           console.log(newstate);
+//         //   if(movie[name].stops["periyar"]){
+//         //       console.log("tr")
+//         //   }
+//       }
+     
+//     //   console.log(newstate[0].Anagar);
+//       let finalstate=[];
+//       for(let i in newstate){
+//           finalstate.push(newstate[i]);
+//           console.log(newstate[i])
+//         //   if(newstate[i] === "periyar"){
+//         //       console.log("true")
+//         //   }
+//       }
+//       if(finalstate[0]["Anagar"]){
+//           console.log(movie);
+//       }
+//     // if(stop[pageId]){
+//     //     console.l
+//     // }
 
      
       
      
-  });
+//   });
         // const queryParams = '?orderBy="name&instaId"&equalTo="' + name + '"';
         // axios.get('/pages.json' + queryParams)
         //     .then(res => {
@@ -120,7 +143,7 @@ export const searchPage = (name,pageId) => {
         //         dispatch(fetchPagesFail(err));
         //     });
     }
-}
+
 
 export const fetchPage = ( ) => {
     return dispatch => {
