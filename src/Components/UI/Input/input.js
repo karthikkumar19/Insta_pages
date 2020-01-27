@@ -49,9 +49,11 @@ const input = ( props ) => {
     }
 
     return (
+        <div>
         <div className={classes.Input}>
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
+        </div>
         </div>
     );
 

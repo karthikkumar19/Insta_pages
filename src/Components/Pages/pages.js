@@ -60,7 +60,7 @@ componentDidMount(){
     onSearchData = (event) => {
         event.preventDefault();
             console.log(this.state.searchName);
-this.props.onSearchpage(this.state.searchName,this.state.pageId);
+this.props.onSearchpage("test2",this.state.searchName,this.state.pageId);
     }
 
    
@@ -117,7 +117,7 @@ const mapDispatchToProps = dispatch => {
         onAddPageInit : () => dispatch(actions.addPageInit()),
         onAscPage : (page) => dispatch(actions.ascPage(page)),
         onDscPage : (page) => dispatch(actions.dscPage(page)),
-        onSearchpage : (pgname,pageid) => dispatch(actions.searchPage(pgname,pageid))
+        onSearchpage : (instaid,startname,stopname) => dispatch(actions.searchPage(instaid,startname,stopname))
     }
 }
 
