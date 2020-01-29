@@ -89,11 +89,12 @@ class AddPageForm extends Component {
     orderHandler = ( event ) => {
         event.preventDefault();
         const formData = {};
+        console.log(this.state.orderForm);
         for (let formElementIdentifier in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
-
-        this.props.onAddPage(formData);
+        console.log(formData);
+        // this.props.onAddPage(formData);
     }
 
     
